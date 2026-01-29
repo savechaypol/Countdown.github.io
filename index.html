@@ -4,96 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Counting down to the start of operations.</title>
+    <title>Premium Countdown Timer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;900&family=Courier+Prime:wght@400;700&family=Special+Elite&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@300;400;600;800&display=swap"
         rel="stylesheet">
     <style>
         :root {
-            --primary: #39ff14;
-            /* Radioactive Green */
-            --primary-glow: rgba(57, 255, 20, 0.4);
-            --bg: #0a0a0a;
-            --card-bg: rgba(15, 20, 15, 0.85);
-            --text: #e0e7e1;
-            --text-dim: #5d4d4d;
-            --glass-border: rgba(57, 255, 20, 0.2);
-            --accent: #7a0000;
-            --subtitle: #e04545;
-            /* Dried Blood */
-        }
-
-        @keyframes glitch {
-            0% {
-                transform: translate(0);
-                text-shadow: 2px 2px var(--accent), -2px -2px var(--primary);
-            }
-
-            20% {
-                transform: translate(-2px, 2px);
-            }
-
-            40% {
-                transform: translate(-2px, -2px);
-                text-shadow: -2px -2px var(--accent), 2px 2px var(--primary);
-            }
-
-            60% {
-                transform: translate(2px, 2px);
-            }
-
-            80% {
-                transform: translate(2px, -2px);
-                text-shadow: 2px -2px var(--accent), -2px 2px var(--primary);
-            }
-
-            100% {
-                transform: translate(0);
-            }
-        }
-
-        @keyframes scanline {
-            0% {
-                transform: translateY(-100%);
-            }
-
-            100% {
-                transform: translateY(100%);
-            }
-        }
-
-        @keyframes flicker-subtle {
-
-            0%,
-            100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.8;
-            }
-
-            75% {
-                opacity: 0.9;
-            }
+            --primary: #6366f1;
+            --primary-glow: rgba(99, 102, 241, 0.5);
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --glass-border: rgba(255, 255, 255, 0.1);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Outfit', 'Inter', sans-serif;
         }
 
         body {
             background-color: var(--bg);
             background-image:
-                linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-                url("https://media.istockphoto.com/id/849048646/th/%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%96%E0%B9%88%E0%B8%B2%E0%B8%A2/%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B9%80%E0%B8%87%E0%B8%B2%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%8B%E0%B8%AD%E0%B8%A1%E0%B8%9A%E0%B8%B5%E0%B9%89.jpg?s=612x612&w=0&k=20&c=lS2bRQVfQ9w7_Pl39m-7SBfvBdRby2bielusBt85zpE=");
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.15) 0px, transparent 50%);
             color: var(--text);
             min-height: 100vh;
             display: flex;
@@ -102,145 +41,98 @@
             justify-content: center;
             padding: 2rem;
             overflow-x: hidden;
-            font-family: 'Special Elite', cursive;
-        }
-
-        /* CRT Scanline Overlay */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
-                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            background-size: 100% 4px, 3px 100%;
-            pointer-events: none;
-            z-index: 10;
         }
 
         .container {
-            position: relative;
             width: 100%;
-            max-width: 900px;
+            max-width: 800px;
             text-align: center;
-            z-index: 5;
+            z-index: 1;
         }
 
         h1 {
-            font-family: 'Cinzel', serif;
             font-size: 3.5rem;
-            font-weight: 900;
-            margin-bottom: 0.5rem;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            animation: glitch 1s infinite alternate;
-            text-shadow: 0 0 10px var(--primary-glow);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.02em;
         }
 
         p.subtitle {
-            font-family: 'Special Elite', cursive;
-            color: var(--subtitle);
-            font-size: 1rem;
-            margin-bottom: 4rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
+            color: var(--text-dim);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
         }
 
         .input-group {
-            background: rgba(10, 15, 10, 0.9);
-            border: 2px solid var(--text-dim);
-            padding: 2.5rem;
-            margin-bottom: 4rem;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8), inset 0 0 10px rgba(57, 255, 20, 0.1);
-            position: relative;
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            padding: 2rem;
+            border-radius: 24px;
+            margin-bottom: 3rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
             display: inline-flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 1rem;
             align-items: center;
+            transition: transform 0.3s ease;
         }
 
-        /* Rusty corner effect */
-        .input-group::before {
-            content: '';
-            position: absolute;
-            top: -5px;
-            left: -5px;
-            width: 20px;
-            height: 20px;
-            border-top: 3px solid var(--accent);
-            border-left: 3px solid var(--accent);
-        }
-
-        .input-group::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            right: -5px;
-            width: 20px;
-            height: 20px;
-            border-bottom: 3px solid var(--accent);
-            border-right: 3px solid var(--accent);
+        .input-group:hover {
+            transform: translateY(-5px);
         }
 
         label {
-            font-weight: 700;
-            color: var(--primary);
-            font-size: 0.8rem;
-            letter-spacing: 0.2em;
-            display: block;
-            margin-bottom: 1rem;
+            font-weight: 600;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }
 
         input[type="datetime-local"] {
-            position: absolute;
-            opacity: 0;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            z-index: 10;
-        }
-
-        .date-display-box {
-            background: #000;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            padding: 1.5rem 3rem;
-            font-family: 'Courier Prime', monospace;
-            font-size: 2rem;
-            letter-spacing: 0.15em;
-            box-shadow: 0 0 15px var(--primary-glow);
-            position: relative;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--glass-border);
+            color: var(--text);
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            outline: none;
             transition: all 0.3s ease;
-            min-width: 400px;
             cursor: pointer;
-            user-select: none;
         }
 
-        .date-display-box span {
-            pointer-events: none;
+        input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            cursor: pointer;
         }
 
-        .date-display-box:hover {
-            box-shadow: 0 0 25px var(--primary-glow);
-            border-color: var(--text);
-            transform: scale(1.02);
+        input[type="datetime-local"]:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px var(--primary-glow);
         }
 
         .countdown-display {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 1.5rem;
+            margin-top: 1rem;
         }
 
         .time-box {
-            background: rgba(0, 0, 0, 0.85);
-            border: 1px solid var(--text-dim);
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
             padding: 2rem 1rem;
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             position: relative;
             overflow: hidden;
         }
@@ -251,83 +143,93 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 2px;
-            background: var(--primary);
-            box-shadow: 0 0 10px var(--primary);
-            animation: scanline 4s linear infinite;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), #a855f7);
+            opacity: 0.7;
         }
 
         .time-value {
-            font-family: 'Courier Prime', monospace;
-            font-size: 4rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-shadow: 0 0 15px var(--primary-glow);
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1;
             margin-bottom: 0.5rem;
-            display: block;
+            font-variant-numeric: tabular-nums;
         }
 
         .time-label {
             font-size: 0.8rem;
-            color: var(--text-dim);
             text-transform: uppercase;
             letter-spacing: 0.2em;
+            color: var(--text-dim);
+            font-weight: 600;
         }
 
         .message {
-            margin-top: 4rem;
-            font-size: 2.5rem;
-            color: var(--accent);
-            text-shadow: 0 0 20px var(--accent);
+            margin-top: 2rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #10b981;
             opacity: 0;
-            transform: scale(0.8);
-            transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: opacity 0.5s ease;
         }
 
         .message.show {
             opacity: 1;
-            transform: scale(1);
-            animation: glitch 0.3s infinite;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 640px) {
             h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
 
             .countdown-display {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
             }
 
             .time-value {
-                font-size: 3rem;
+                font-size: 2.5rem;
             }
         }
 
-        /* Dark smoke effect */
-        .smoke {
+        /* Ambient background circles */
+        .circle {
             position: fixed;
-            width: 100vw;
-            height: 100vh;
-            background: radial-gradient(circle at center, transparent 30%, black 90%);
-            pointer-events: none;
+            border-radius: 50%;
+            filter: blur(80px);
             z-index: 0;
-            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        .circle-1 {
+            width: 400px;
+            height: 400px;
+            background: rgba(99, 102, 241, 0.1);
+            top: -100px;
+            left: -100px;
+        }
+
+        .circle-2 {
+            width: 300px;
+            height: 300px;
+            background: rgba(168, 85, 247, 0.1);
+            bottom: -50px;
+            right: -50px;
         }
     </style>
 </head>
 
 <body>
+    <div class="circle circle-1"></div>
+    <div class="circle circle-2"></div>
+
     <div class="container">
-        <h1>นับถอยหลังสู่ความตาย</h1>
-        <p class="subtitle">เมื่อคุณบอกจะลาออก ความตายกำลังจะมาหาคุณ...</p>
+        <h1>Countdown</h1>
+        <p class="subtitle">เลือกวันเวลาที่ต้องการนับถอยหลัง</p>
 
         <div class="input-group">
-            <label>ตั้งเวลานับถอยหลัง</label>
-            <div class="date-display-box" id="date-display-trigger">
-                <span id="display-text">00/00/0000 00:00</span>
-                <input type="datetime-local" id="target-date">
-            </div>
+            <label for="target-date">ตั้งเวลานับถอยหลัง</label>
+            <input type="datetime-local" id="target-date">
         </div>
 
         <div class="countdown-display">
@@ -349,12 +251,11 @@
             </div>
         </div>
 
-        <div id="finish-message" class="message">ถึงเวลาสิ้นสุดแล้ว... 💀</div>
+        <div id="finish-message" class="message">ถึงเวลาที่กำหนดแล้ว! 🎉</div>
     </div>
 
     <script>
         const targetInput = document.getElementById('target-date');
-        const displayText = document.getElementById('display-text');
         const daysEl = document.getElementById('days');
         const hoursEl = document.getElementById('hours');
         const minsEl = document.getElementById('minutes');
@@ -403,17 +304,6 @@
             hoursEl.innerText = String(hours).padStart(2, '0');
             minsEl.innerText = String(minutes).padStart(2, '0');
             secsEl.innerText = String(seconds).padStart(2, '0');
-
-            // Update display text box
-            const dateObj = new Date(targetInput.value);
-            if (!isNaN(dateObj)) {
-                const day = String(dateObj.getDate()).padStart(2, '0');
-                const month = String(dateObj.getMonth() + 1).padStart(2, '0');
-                const year = dateObj.getFullYear();
-                const hoursStr = String(dateObj.getHours()).padStart(2, '0');
-                const minutesStr = String(dateObj.getMinutes()).padStart(2, '0');
-                displayText.innerText = `${day}/${month}/${year} ${hoursStr}:${minutesStr}`;
-            }
         }
 
         // Event Listeners
@@ -427,16 +317,6 @@
         // Initial call
         updateCountdown();
         countdownInterval = setInterval(updateCountdown, 1000);
-
-        // Click handler for the container to ensure the picker opens
-        const dateTrigger = document.getElementById('date-display-trigger');
-        dateTrigger.addEventListener('click', (e) => {
-            if (targetInput.showPicker) {
-                targetInput.showPicker();
-            } else {
-                targetInput.click();
-            }
-        });
     </script>
 </body>
 
