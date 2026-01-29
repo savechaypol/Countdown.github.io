@@ -195,14 +195,40 @@
         }
 
         input[type="datetime-local"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+
+        .date-display-box {
             background: #000;
-            border: 1px solid var(--primary);
+            border: 2px solid var(--primary);
             color: var(--primary);
-            padding: 12px 20px;
+            padding: 1.5rem 3rem;
             font-family: 'Courier Prime', monospace;
-            font-size: 1.2rem;
-            outline: none;
-            box-shadow: 0 0 10px var(--primary-glow);
+            font-size: 2rem;
+            letter-spacing: 0.15em;
+            box-shadow: 0 0 15px var(--primary-glow);
+            position: relative;
+            transition: all 0.3s ease;
+            min-width: 400px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .date-display-box span {
+            pointer-events: none;
+        }
+
+        .date-display-box:hover {
+            box-shadow: 0 0 25px var(--primary-glow);
+            border-color: var(--text);
+            transform: scale(1.02);
         }
 
         .countdown-display {
@@ -297,8 +323,11 @@
         <p class="subtitle">เมื่อคุณบอกจะลาออก ความตายกำลังจะมาหาคุณ...</p>
 
         <div class="input-group">
-            <label for="target-date">ตั้งเวลานับถอยหลัง</label>
-            <input type="datetime-local" id="target-date">
+            <label>ตั้งเวลานับถอยหลัง</label>
+            <div class="date-display-box" id="date-display-trigger">
+                <span id="display-text">00/00/0000 00:00</span>
+                <input type="datetime-local" id="target-date">
+            </div>
         </div>
 
         <div class="countdown-display">
@@ -325,6 +354,7 @@
 
     <script>
         const targetInput = document.getElementById('target-date');
+        const displayText = document.getElementById('display-text');
         const daysEl = document.getElementById('days');
         const hoursEl = document.getElementById('hours');
         const minsEl = document.getElementById('minutes');
@@ -373,6 +403,17 @@
             hoursEl.innerText = String(hours).padStart(2, '0');
             minsEl.innerText = String(minutes).padStart(2, '0');
             secsEl.innerText = String(seconds).padStart(2, '0');
+
+            // Update display text box
+            const dateObj = new Date(targetInput.value);
+            if (!isNaN(dateObj)) {
+                const day = String(dateObj.getDate()).padStart(2, '0');
+                const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+                const year = dateObj.getFullYear();
+                const hoursStr = String(dateObj.getHours()).padStart(2, '0');
+                const minutesStr = String(dateObj.getMinutes()).padStart(2, '0');
+                displayText.innerText = `${day}/${month}/${year} ${hoursStr}:${minutesStr}`;
+            }
         }
 
         // Event Listeners
@@ -386,6 +427,16 @@
         // Initial call
         updateCountdown();
         countdownInterval = setInterval(updateCountdown, 1000);
+
+        // Click handler for the container to ensure the picker opens
+        const dateTrigger = document.getElementById('date-display-trigger');
+        dateTrigger.addEventListener('click', (e) => {
+            if (targetInput.showPicker) {
+                targetInput.showPicker();
+            } else {
+                targetInput.click();
+            }
+        });
     </script>
 </body>
 
